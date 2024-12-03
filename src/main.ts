@@ -13,6 +13,18 @@ async function bootstrap() {
     }),
   );
 
+  app.enableCors({
+    origin: [
+      'http://localhost:3000',
+      'http://localhost:3001',
+      'http://localhost:3002',
+      'https://edutech-frontend-flax.vercel.app/',
+      'https://edutech-fe-nine.vercel.app/',
+    ],
+    methods: 'GET,HEAD,PUT,PATCH,POST,DELETE,OPTIONS',
+    credentials: true,
+  });
+
   await app.listen(3000);
   console.log('Application is running on: http://localhost:3000');
 }
