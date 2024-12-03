@@ -4,11 +4,13 @@ import { UserRepository } from '../user/user.repository';
 import { RegisterDto } from './dto/register.dto';
 import { LoginDto } from './dto/login.dto';
 import { hashPassword, comparePassword } from '../common/utils/hash.util';
+import { UserService } from 'src/user/user.service';
 
 @Injectable()
 export class AuthService {
   constructor(
     private readonly userRepository: UserRepository,
+    private readonly userService: UserService,
     private readonly jwtService: JwtService,
   ) {}
 

@@ -1,19 +1,24 @@
-import { Entity, PrimaryGeneratedColumn, Column } from 'typeorm';
+import { Entity, PrimaryGeneratedColumn, Column, OneToMany } from 'typeorm';
+import { InstructorApplication } from '../../instructor-application/entities/instructor-application.entity';
+import { Content } from 'src/content/entities/content.entity';
 
 @Entity('users')
 export class User {
-  @PrimaryGeneratedColumn('uuid')
-  id: string;
+  @PrimaryGeneratedColumn()
+  id: number;
 
-  @Column({ unique: true })
+  @Column()
   email: string;
 
   @Column()
   password: string;
 
-  @Column({ default: 'user' })
-  role: string; // 'user' or 'instructor'
+  @Column()
+  role: string;
 
-  @Column({ default: new Date() })
-  createdAt: Date;
+  @OneToMany(() => InstructorApplication, (application) => application.user)
+  applications: InstructorApplication[];
+
+  @OneToMany(() => Content, (content) => content.instructor)
+  content: Content[];
 }

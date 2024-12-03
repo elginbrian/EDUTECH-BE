@@ -4,7 +4,7 @@ import { Repository } from 'typeorm';
 import { User } from './entities/user.entity';
 import { CreateUserDto } from '../user/dto/create-user-dto';
 import { UpdateUserDto } from '../user/dto/update-user-dto';
-import * as bcrypt from 'bcrypt';
+import * as bcrypt from 'bcryptjs';
 
 @Injectable()
 export class UserService {
@@ -16,7 +16,6 @@ export class UserService {
   async create(createUserDto: CreateUserDto): Promise<User> {
     const { password, ...userData } = createUserDto;
 
-    // Hash the password before saving it
     const hashedPassword = await bcrypt.hash(password, 10);
 
     const user = this.userRepository.create({
@@ -33,9 +32,19 @@ export class UserService {
     });
   }
 
+  async findAll(): Promise<User[]> {
+    return await this.userRepository.find();
+  }
+
   async findOneById(id: string): Promise<User | undefined> {
+    const idAsNumber = Number(id);
+
+    if (isNaN(idAsNumber)) {
+      throw new Error('Invalid id format');
+    }
+
     return await this.userRepository.findOne({
-      where: { id },
+      where: { id: idAsNumber },
     });
   }
 
