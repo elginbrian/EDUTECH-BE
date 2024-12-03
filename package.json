@@ -8,7 +8,7 @@
   "scripts": {
     "start": "node dist/main.js",
     "start:dev": "nest start --watch",
-    "build": "tsc && echo 'Build completed' && ls dist",
+    "build": "tsc",
     "start:prod": "node dist/main.js",
     "typeorm": "typeorm"
   },
@@ -21,6 +21,7 @@
     "@nestjs/platform-express": "^10.0.0",
     "@nestjs/typeorm": "^10.0.2",
     "bcryptjs": "^2.4.3",
+    "cjs-loader": "^0.1.0",
     "class-transformer": "^0.5.1",
     "class-validator": "^0.14.1",
     "dotenv": "^16.4.5",
